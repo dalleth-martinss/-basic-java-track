@@ -1,10 +1,38 @@
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Candidaturas {
    public static void main(String[] args) {
+      String[] candidatos = { "FELIPE ", "MARCIA ", "JULIA ", "PAULO ", "AUGUSTO " };
+      for (String candidato : candidatos) {
+         entrandoEmContato(candidato);
+      }
 
-      imprimirSelecionados();
+   }
 
+   static void entrandoEmContato(String candidato) {
+      int tentativasRealizadas = 1;
+      boolean continuarTentando = true;
+      boolean atendeu = false;
+      do {
+         atendeu = atender();
+         continuarTentando = !atendeu;
+         if (continuarTentando)
+            tentativasRealizadas++;
+         else
+            System.out.println("CONTATO REALIZADO COM SUCESSO");
+
+      } while (continuarTentando && tentativasRealizadas < 3);
+      if (atendeu)
+         System.out.println("CONSEGUIMOS CONTATO COM " + candidato + " NA " + tentativasRealizadas);
+      else
+         System.out.println(
+               "NÃO CONSEGUIMOS CONTATO COM " + candidato + ", NÚMERO MAXIMO ALCANÇADO " + tentativasRealizadas
+                     + " REALIZADAS");
+   }
+
+   static boolean atender() {
+      return new Random().nextInt(3) == 1;
    }
 
    // Os metodos ficam fora do escopo do main- pq? pq é uma boa pratica modularizar
